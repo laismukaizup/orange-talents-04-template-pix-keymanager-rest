@@ -27,4 +27,15 @@ class CarregaChavePixController(@Inject private val carregaClient: CarregaChaveP
 
         return HttpResponse.ok(DetalheChavePixResponse(response))
     }
+
+    @Get("chave/{valorChave}")
+    fun carrega(valorChave:String): HttpResponse<Any> {
+        val response = carregaClient.carregar(
+            CarregaChavePixRequest.newBuilder()
+                .setValorChave(valorChave)
+                .build()
+        )
+
+        return HttpResponse.ok(DetalheChavePixResponse(response))
+    }
 }
