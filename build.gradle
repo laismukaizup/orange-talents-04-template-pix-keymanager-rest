@@ -43,6 +43,7 @@ dependencies {
     implementation("javax.validation:validation-api");
 
     testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation("org.mockito:mockito-core:3.8.0")
 }
 
 
