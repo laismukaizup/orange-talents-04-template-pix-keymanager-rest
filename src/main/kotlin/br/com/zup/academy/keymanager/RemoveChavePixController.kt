@@ -14,13 +14,6 @@ class RemoveChavePixController(@Inject private val removeChavePixClient: RemoveC
 
     @Delete("/pix/{pixId}")
     fun remove(clienteId: String, pixId: String): HttpResponse<Any> {
-
-        if (clienteId.isNullOrBlank())
-            throw IllegalArgumentException("cliente id não pode ser vazio ou nulo")
-
-        if (pixId.isNullOrBlank())
-            throw IllegalArgumentException("cliente id não pode ser vazio ou nulo")
-
         val responseGrpc = removeChavePixClient.remover(
             RemoveChavePixRequest.newBuilder()
                 .setClienteId(clienteId)
