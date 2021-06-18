@@ -42,8 +42,10 @@ dependencies {
     implementation ("org.hibernate:hibernate-validator:7.0.1.Final")
     implementation("javax.validation:validation-api");
 
+
     testImplementation("io.micronaut:micronaut-http-client")
     testImplementation("org.mockito:mockito-core:3.8.0")
+    testImplementation("org.mockito:mockito-inline:2.13.0")
 }
 
 
