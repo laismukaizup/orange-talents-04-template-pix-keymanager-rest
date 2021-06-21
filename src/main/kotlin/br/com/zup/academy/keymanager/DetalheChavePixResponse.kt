@@ -21,8 +21,7 @@ class DetalheChavePixResponse(response: CarregaChavePixResponse) {
         Pair("cpfDoTitular",  response.chave.conta.cpfDoTitular),
         Pair("agencia",  response.chave.conta.agencia),
         Pair("numero",  response.chave.conta.numeroDaConta),
-
-
     )
-
 }
+
+
