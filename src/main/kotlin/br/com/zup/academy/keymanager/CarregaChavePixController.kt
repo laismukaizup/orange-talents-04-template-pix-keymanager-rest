@@ -1,23 +1,23 @@
 package br.com.zup.academy.keymanager
 
-import br.com.zup.academy.*
-import com.google.protobuf.Timestamp
+import br.com.zup.academy.CarregaChavePixGRPCServiceGrpc
+import br.com.zup.academy.CarregaChavePixRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.micronaut.tracing.annotation.ContinueSpan
+import io.micronaut.tracing.annotation.SpanTag
 import io.micronaut.validation.Validated
-import java.time.ZoneId
 import javax.inject.Inject
+import javax.validation.constraints.NotBlank
 
 @Validated
 @Controller("/api/v1/clientes/{clienteId}")
-class CarregaChavePixController(
-    @Inject private val carregaClient: CarregaChavePixGRPCServiceGrpc.CarregaChavePixGRPCServiceBlockingStub,
-    @Inject private val listaClient: ListaChavePixGRPCServiceGrpc.ListaChavePixGRPCServiceBlockingStub
-) {
+class CarregaChavePixController(@Inject private val carregaClient: CarregaChavePixGRPCServiceGrpc.CarregaChavePixGRPCServiceBlockingStub) {
 
     @Get("pix/{pixId}")
-    fun carrega(clienteId: String, pixId: String): HttpResponse<Any> {
+    @ContinueSpan
+    fun carrega(@SpanTag("grpc.clienteId") clienteId: String, pixId: String): HttpResponse<Any> {
 
         val response = carregaClient.carregar(
             CarregaChavePixRequest.newBuilder()
@@ -33,7 +33,7 @@ class CarregaChavePixController(
     }
 
     @Get("chave/{valorChave}")
-    fun carrega(valorChave: String): HttpResponse<Any> {
+    fun carrega(valorChave:String): HttpResponse<Any> {
         val response = carregaClient.carregar(
             CarregaChavePixRequest.newBuilder()
                 .setValorChave(valorChave)
@@ -41,18 +41,5 @@ class CarregaChavePixController(
         )
 
         return HttpResponse.ok(DetalheChavePixResponse(response))
-    }
-
-    @Get("/lista")
-    fun lista(clienteId: String): HttpResponse<Any> {
-        val response = listaClient.listar(
-            ListaChavePixRequest.newBuilder()
-                .setClienteId(clienteId)
-                .build()
-        )
-        val chaves = response.chavesList.map { ChavePixResponse(it) }
-
-
-        return HttpResponse.ok(chaves)
     }
 }

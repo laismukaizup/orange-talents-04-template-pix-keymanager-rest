@@ -15,3 +15,24 @@ grpc:
 jackson:
   serialization:
     writeDatesAsTimestamps: false
+
+metrics:
+  enabled: true
+
+endpoints:
+  all.path: /actuator
+  beans:
+    enabled: true
+    sensitive: false
+  health:
+    enabled: true
+    sensitive: false
+  info:
+    enabled: true
+    sensitive: false
+  metrics:
+    enabled: true
+    sensitive: false
+  prometheus:
+      enabled: true
+      sensitive: false

@@ -40,7 +40,15 @@ dependencies {
     //implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
     //implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator:2.3.1")
     implementation ("org.hibernate:hibernate-validator:7.0.1.Final")
-    implementation("javax.validation:validation-api");
+    implementation("javax.validation:validation-api")
+    implementation("io.micronaut:micronaut-management")
+    implementation("io.micrometer:micrometer-core")
+    implementation("io.micrometer:micrometer-registry-statsd")
+
+    //jaeger
+    implementation("io.micronaut:micronaut-tracing")
+    runtimeOnly("io.jaegertracing:jaeger-thrift")
+
 
 
     testImplementation("io.micronaut:micronaut-http-client")
